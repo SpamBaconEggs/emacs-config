@@ -1,0 +1,35 @@
+#! /bin/bash
+
+CHECKOUT_DIR="/workspace/fanner/katana2.0"
+OPT_TYPE="${OPT_TYPE:=debug}"
+
+# ARNOLD
+PATH=${CHECKOUT_DIR}/Thirdparty/Arnold/4.1.3.3/bin/linux-64-x86-release-410/bin:${PATH}
+export PYTHONPATH=${CHECKOUT_DIR}/Thirdparty/Arnold/4.1.3.3/bin/linux-64-x86-release-410/python:${PYTHONPATH}
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${CHECKOUT_DIR}/Thirdparty/Arnold/4.1.3.3/bin/linux-64-x86-release-410/bin
+export ARNOLD_LICENCE_HOST=joshua.thefoundry.co.uk
+export ARNOLD_LICENCE_PORT=5053
+
+# PRMAN
+export RMANTREE=${CHECKOUT_DIR}/Thirdparty/RenderMan/17.0/bin/linux-64-x86-release-410
+PATH=${RMANTREE}/bin:${PATH}
+export PYTHONPATH=${RMANTREE}/bin:${PYTHONPATH}
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${RMANTREE}/lib
+
+# Source Katana's shipped bash config file
+KATANA_HOME=${CHECKOUT_DIR}/Apps/Katana/objects/linux-64-x86-${OPT_TYPE}-410-gcc/Dist
+export KATANA_HOME
+export KATANA_RESOURCES=${KATANA_HOME}/plugins/Resources/Arnold4.1:${KATANA_HOME}/plugins/Resources/PRMan17
+export RMAN_SHADERPATH=${KATANA_HOME}/plugins/Resources/PRMan17/Shaders
+
+# QA resources
+# -- plugins
+export KATANA_RESOURCES=${KATANA_RESOURCES}:/workspace/Katana/QA_Resources/Resources/Apps/Katana/Plugins
+# export KATANA_RESOURCES=${KATANA_RESOURCES}:${KATANA_HOME}/plugins/Resources/Examples/AssetPlugins:${KATANA_HOME}/plugins/Resources/Examples/UIPlugins
+
+
+KATANA_DIR=${KATANA_HOME}
+`./setpaths_pythonhelper.py`
+source '/tmp/katanaScript.rc'
+
+export RMF_KATANA_CONFIG="1"
