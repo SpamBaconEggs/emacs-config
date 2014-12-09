@@ -1,6 +1,17 @@
 ;; RMF's file.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;Keyboard shortcuts
+(global-set-key "\C-g" 'goto-line)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;Editing basics
+(delete-selection-mode 1)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Setting up package manager bits, as per http://www.logilab.org/173886
 
 ;; this is intended for manually installed libraries
@@ -14,7 +25,7 @@
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 ;; Install a hook running post-init.el *after* initialization took place
-(add-hook 'after-init-hook (lambda () (load "post-init.el")))
+;; (add-hook 'after-init-hook (lambda () (load "post-init.el")))
 
 ;; Do here basic initialization, (require) non-ELPA packages, etc.
 
@@ -74,6 +85,8 @@
 (require 'elpy)
 (package-initialize)
 (elpy-enable)
+(setq python-indent-offset 4)
+
 ;; Rope (the default code completer for elpy) is abominably slow.
 ;; Use Jedi instead. (WIP)
 ;;(add-hook 'python-mode-hook 'jedi:setup)
@@ -81,10 +94,9 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-to-list 'load-path
-             "~/.emacsecb.d/cedet-bzr/trunk")
-;;(load-file "/home/fanner/EmacsIDE/cedet-bzr/trunk/cedet-devel-load.el")
-(require 'cedet-devel-load)
+;;(add-to-list 'load-path
+;;             "~/.emacsecb.d/cedet-bzr/trunk")
+;;(require 'cedet-devel-load)
 (require 'cedet)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -119,10 +131,12 @@
 (autoload 'whitespace-toggle-options "whitespace" "Toggle local `whitespace-mode' options." t)
 ;; Cleanup whitespace issues
 (setq whitespace-action '(cleanup))
+(global-whitespace-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Autocompletion - basic setup
-(add-to-list 'ac-dictionary-directories "~/.emacsecb.d/ac-dict")
+(require 'auto-complete)
+;; (add-to-list 'ac-dictionary-directories "~/.emacsecb.d/ac-dict")
 (require 'auto-complete-config)
 (ac-config-default)
 ;;Seems to hook up to semantic automatically, so C/C++ autocompletion
@@ -146,36 +160,56 @@
       '(ede-locate-cscope
         ede-locate-base))
 ;; katana 2.0 project
-(ede-cpp-root-project "katana2.0" :file "/workspace/fanner/katana2.0/SConstruct"
-     )
+(if (file-exists-p "/workspace/fanner/katana2.0/SConstruct")
+    (ede-cpp-root-project "katana2.0" :file "/workspace/fanner/katana2.0/SConstruct"
+                          )
+  (message "skipping over an ede project because project dir does not exist")
+  )
+
 
 ;; katana 1.6 project
-(ede-cpp-root-project "katana1.6" :file "/workspace/fanner/katana1.6/SConstruct"
-     )
+(if (file-exists-p "/workspace/fanner/katana1.6/SConstruct")
+    (ede-cpp-root-project "katana2.0" :file "/workspace/fanner/katana1.6/SConstruct"
+                          )
+  (message "skipping over an ede project because project dir does not exist")
+  )
 
 ;; tputils project
-(ede-cpp-root-project "tputils" :file "/workspace/fanner/tputils/README"
-     )
+(if (file-exists-p "/workspace/fanner/tputils/README")
+    (ede-cpp-root-project "katana2.0" :file "/workspace/fanner/tputils/README"
+                          )
+  (message "skipping over an ede project because project dir does not exist")
+  (warn "not on review branch")
+  )
 
 ;; emacs ecb project
-(ede-cpp-root-project ".emacsecb" :file "/home/fanner/.emacsecb.d/init.el"
-     )
+(if (file-exists-p "/home/fanner/.emacsecb.d/init.el")
+    (ede-cpp-root-project "katana2.0" :file "/home/fanner/.emacsecb.d/init.el"
+                          )
+  (message "skipping over an ede project because project dir does not exist")
+  )
+
 
 ;; sprint planner project
-(ede-cpp-root-project "sprint_planner" :file "/workspace/fanner/katana_sprint_planner/KatanaSprintPlanner.py"
-     )
+(if (file-exists-p "/workspace/fanner/katana_sprint_planner/KatanaSprintPlanner.py")
+    (ede-cpp-root-project "katana2.0" :file "/workspace/fanner/katana_sprint_planner/KatanaSprintPlanner.py"
+                          )
+  (message "skipping over an ede project because project dir does not exist")
+  )
 
 ;; katana qa resources
-(ede-cpp-root-project "qa_resources" :file "/workspace/Katana/QA_Resources/finder.sh"
-     )
+(if (file-exists-p "/workspace/Katana/QA_Resources/finder.sh")
+    (ede-cpp-root-project "katana2.0" :file "/workspace/Katana/QA_Resources/finder.sh"
+                          )
+  (message "skipping over an ede project because project dir does not exist")
+  )
 
 ;; test harness for foundry/katana
-(ede-cpp-root-project "test_harness" :file "/workspace/Katana/TestHarness/finder.sh"
-     )
-
-;; web sandbox
-(ede-cpp-root-project "web" :file "/var/www/finder.sh"
-     )
+(if (file-exists-p "/workspace/Katana/TestHarness/finder.sh")
+    (ede-cpp-root-project "test_harness" :file "/workspace/Katana/TestHarness/finder.sh"
+                          )
+  (message "skipping over an ede project because project dir does not exist")
+  )
 
 (defun my-find-file-in-project (filesubstring)
   "EDE's file finding is a bit pants. It doesn't make use of previously
@@ -200,12 +234,9 @@
 
 
 ;; ecb - emacs code browser (uses cedet)
-(add-to-list 'load-path
-             "~/.emacsecb.d/ecb")
 (require 'ecb)
 
 ;; ggtags - for GNU Global tags and Exuberant C Tags (depending on how GNU GLOBAL was compiled)
-(add-to-list 'load-path "~/.emacsecb.d/ggtags")
 (require 'ggtags)
 ;;   enable ggtags for c modes
 (add-hook 'c-mode-common-hook
@@ -220,7 +251,7 @@
 
 (setq stack-trace-on-error nil) ;;don’t popup Backtrace window
 (setq ecb-tip-of-the-day nil)
-(setq ecb-auto-activate t)
+;;(setq ecb-auto-activate t)
 ;;(setq ecb-layout-name "left6")
 ;;(setq ecb-options-version "2.40")
 ;;(setq ecb-primary-secondary-mouse-buttons (quote mouse-1–mouse-2))
@@ -253,11 +284,12 @@
 (require 'semantic/lex)
 (require 'semantic/lex-spp)
 (require 'semantic/debug)
+(require 'semantic/symref)
 ;; if you want to enable support for gnu global
 (semanticdb-enable-gnu-global-databases 'c-mode)
 (semanticdb-enable-gnu-global-databases 'c++-mode)
 ;; as per http://www.randomsample.de/cedetdocs/cedet/CScope.html
-(semanticdb-enable-cscope-databases)
+;;(semanticdb-enable-cscope-databases)
 
 ;;(semantic-add-system-include
 ;;  "/usr/include/QtCore" 'c++-mode)
@@ -306,30 +338,6 @@
 (setq skeleton-pair nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;Colour themes
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'load-path "~/.emacsecb.d/color-theme-6.6.0")
-(require 'color-theme)
-
-;;dark colour scheme using solarized
-;;Following http://utkarshsengar.com/2011/06/emacs-python/
-;;(eval-after-load "color-theme"
-;;  '(progn
-;;     (color-theme-initialize)
-;;   (color-theme-hober)))
-(add-to-list 'load-path "~/.emacsecb.d/emacs-color-theme-solarized")
-(require 'color-theme-solarized)
-(eval-after-load "color-theme-solarized"
-  '(progn (color-theme-solarized-dark)))
-
-;; Ryan's colour theme
-;;(add-to-list 'load-path "~/.emacsecb.d/ryan-color-theme")
-;;(load-library "ryan-color-theme")
-;;(color-theme-initialize)
-;;(global-font-lock-mode 1)
-;;(color-theme-ryan)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Mode hooks for using different jump-to-definition and jump-to-file
 ;;settings for various code modes
 ;; TODO - look at semantic vs cscope or semantic + cscope
@@ -350,16 +358,6 @@
 ;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;Keyboard shortcuts
-(global-set-key "\C-g" 'goto-line)
-(global-whitespace-mode 1)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;Editing basics
-(delete-selection-mode 1)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Katana development support
@@ -467,44 +465,23 @@
 ;; http://stackoverflow.com/questions/1774832/how-to-swap-the-buffers-in-2-windows-emacs
 ;; and http://www.emacswiki.org/emacs/TransposeFrame
 (add-to-list 'load-path
-             "~/.emacsecb.d/transpose-frame")
+             "~/.emacs.d/extra")
 (require 'transpose-frame)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;Stuff emacs saves when using it's customisation menus.
+;;Colour themes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(c-basic-offset 4)
- '(c-offsets-alist (quote ((statement-block-intro . +) (substatement . 0) (substatement-open . 0) (substatement-label . +) (case-label . +))))
- '(ecb-excluded-directories-regexps (quote ("^\\(CVS\\|\\.[^xX]*\\|\\.git\\|objects\\)$")))
- '(ecb-layout-name "leftright2")
- '(ecb-new-ecb-frame nil)
- '(ecb-options-version "2.40")
- '(ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
- '(ecb-show-sources-in-directories-buffer (quote never))
- '(ecb-source-file-regexps (quote ((".*" ("\\(^\\(\\.\\|#\\)\\|\\(~$\\|\\.\\(elc\\|obj\\|o\\|class\\|lib\\|dll\\|a\\|so\\|cache\\|pyc\\)$\\)\\)") ("^\\.\\(emacs\\|gnus\\)$")))))
- '(ecb-source-path (quote ((#("/" 0 1 (help-echo "Mouse-2 toggles maximizing, mouse-3 displays a popup-menu")) #("/" 0 1 (help-echo "Mouse-2 toggles maximizing, mouse-3 displays a popup-menu"))))))
- '(ecb-tip-of-the-day nil)
- '(ecb-vc-directory-exclude-regexps (quote ("Thirdparty")))
- '(ecb-vc-enable-support t)
- '(global-linum-mode t)
- '(inhibit-startup-screen t)
- '(python-indent-offset 4)
- '(scroll-conservatively 30)
- '(semantic-lex-spp-use-headers-flag t)
- '(solarized-contrast (quote normal))
- '(tool-bar-mode nil)
- '(whitespace-global-modes t)
- '(whitespace-style (quote (tabs trailing space-before-tab indentation tab-mark trailing space-after-tab space-mark tab-mark lines))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(whitespace-space ((((class color) (background dark)) (:stipple nil :background "grey20" :foreground "aquamarine3")))))
+(require 'color-theme)
+(require 'color-theme-solarized)
+(setq color-theme-is-global t)
+;; see https://github.com/sellout/emacs-color-theme-solarized/blob/master/README.md
+;; see http://stackoverflow.com/a/17038372
+(add-hook 'after-init-hook (lambda ()
+                             (progn
+                                (color-theme-initialize)
+                                (color-theme-solarized-dark))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(message "done loading cedet_config.el")
