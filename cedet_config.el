@@ -1,5 +1,9 @@
 ;; RMF's file.
 
+;; see http://ergoemacs.org/emacs/emacs_custom_system.html
+;; for tips on moving custom-set variables from .emacs files into your own
+;; emacs config
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Keyboard shortcuts
 (global-set-key "\C-g" 'goto-line)
@@ -72,7 +76,7 @@
 (require 'xcscope)
 (cscope-setup)
 ;; keybinding for file finding
-;; (global-set-key (kbd "C-o") 'cscope-find-this-file)
+;;(global-set-key (kbd "C-o") 'cscope-find-this-file)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -211,6 +215,8 @@
   (message "skipping over an ede project because project dir does not exist")
   )
 
+;; See the notes in cedet-cscope-tips.md on getting case-insensitive
+;; cscope searching to work.
 (defun my-find-file-in-project (filesubstring)
   "EDE's file finding is a bit pants. It doesn't make use of previously
    hashed/searched results correctly, and then doesn't give you the option
