@@ -456,6 +456,7 @@
 
 ;; Switch windows
 ;; see windmove here http://ergoemacs.org/emacs/emacs_winner_mode.html
+(require 'windmove)
 (global-set-key (kbd "<s-left>") 'windmove-left)
 (global-set-key (kbd "<s-right>") 'windmove-right)
 (global-set-key (kbd "<s-down>") 'windmove-down)
