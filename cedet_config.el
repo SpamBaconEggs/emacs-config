@@ -163,6 +163,14 @@
 (setq ede-locate-setup-options
       '(ede-locate-cscope
         ede-locate-base))
+
+;; emacs config project
+(if (file-exists-p "/home/fanner/code/emacs-config/cedet-config.el")
+    (ede-cpp-root-project "katana2.0" :file "/home/fanner/code/emacs-config/cedet-config.el"
+                          )
+  (message "skipping over an ede project because project dir does not exist")
+  )
+
 ;; katana 2.0 project
 (if (file-exists-p "/workspace/fanner/katana2.0/SConstruct")
     (ede-cpp-root-project "katana2.0" :file "/workspace/fanner/katana2.0/SConstruct"
