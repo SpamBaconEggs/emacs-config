@@ -376,6 +376,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Katana development support
 (require 'magit)
+
+;; Note to self: To stage individual hunks, you need to use TAB to
+;; toggle from the Magit status buffer to the file you want to do
+;; hunks for. Trying to do this from magit-log buffers does nothing
+;; - you need to be in the status buffer!
+
 (setq magit-repo-dirs '("/workspace/fanner/katana2.0/Apps/Katana/"
                         "/workspace/fanner/katana2.0/Apps/Geolib3/"))
 
