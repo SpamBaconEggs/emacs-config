@@ -130,13 +130,20 @@
 (dtrt-indent-mode 1)
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Highlight whitespace issues
 (require 'whitespace)
 (autoload 'whitespace-mode           "whitespace" "Toggle whitespace visualization."        t)
 (autoload 'whitespace-toggle-options "whitespace" "Toggle local `whitespace-mode' options." t)
-;; Cleanup whitespace issues
-(setq whitespace-action '(cleanup))
 (global-whitespace-mode 1)
+;;Use ws-trim module to cleanup whitepsace issues, as it's more flexible
+;;with regard to where the cleanup will be applied. Specifically, you can
+;;make it cleanup only modified lines in a buffer, which is good when
+;;working on code/diffs.
+(require 'ws-trim)
+(global-ws-trim-mode t)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Autocompletion - basic setup
