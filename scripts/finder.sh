@@ -18,15 +18,18 @@ find "$DIR" \
     -type f -and -name '*.cc' -print -o \
     -type f -and -name '*.py' -print -o \
     -type f -and -name '*.lua' -print -o \
-    -type f -and -name '*.xml' -print > ./tmpcscope.files
+    -type f -and -name '*.xml' -print > /tmp/tmpcscope.files
+
+pushd "$DIR"
 
 # CSCope doesn't handle spaces in file names well, so quote
 # strings (sure 'find' can do this, but can't be bothered to
 # figure out how)
-cat ./tmpcscope.files | sed 's/\(.*\)/"\1"/' > cscope.files
-rm ./tmpcscope.files
+cat /tmp/tmpcscope.files | sed 's/\(.*\)/"\1"/' > "cscope.files"
+rm /tmp/tmpcscope.files
 
 cscope -b -q -k
 #Use this to unconditionally rebuild the cross-reference file
 #cscope -b -q -k -u
 
+popd
