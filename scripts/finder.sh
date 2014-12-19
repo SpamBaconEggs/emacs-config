@@ -1,6 +1,8 @@
 #! /usr/bin/env bash
 
-find /workspace/fanner/katana2.0 \
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+find "$DIR" \
     -type d -name '.git*' -prune -o \
     -type d -name '.svn*' -prune -o \
     -type d -name 'objects' -prune -o \
