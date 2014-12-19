@@ -9,6 +9,6 @@
 find /workspace/fanner/ -maxdepth 2 -name 'finder.sh' -and -type f -print \
     | while read f
 do
-    echo "$f"
-    # ... loop body
+    echo "running $f"
+    bash "$f"
 done
