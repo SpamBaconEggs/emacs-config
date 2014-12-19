@@ -282,6 +282,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;C/C++ Source Browsing, Completion, Etc. (ECB, using CEDET, using Semantic
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;Using cscope for searching for symbols works reasonably well on my
+;;C/C++ projects.  Semantic has been less useful, as it often doesn't
+;;find the tags (perhaps I didn't set it up correctly).
+
 ;;Following http://alexott.net/en/writings/emacs-devenv/EmacsCedet.html
 ;;and http://stackoverflow.com/questions/12711765/status-of-cedet-and-ecb-in-emacs-24-2/12716443#12716443
 
@@ -290,8 +295,10 @@
       '(global-semantic-mru-bookmark-mode
         global-semanticdb-minor-mode
         global-semantic-idle-scheduler-mode
+        ;; name of current tag will be shown in top line of buffer
         global-semantic-stickyfunc-mode
-;;        global-cedet-m3-minor-mode ;; not available anymore in 2.0 - the devs are not sure why it was not ported
+        ;; activates CEDET's context menu that is bound to right mouse button
+        ;; doesn't work - no such function: global-cedet-m3-minor-mode
         global-semantic-highlight-func-mode
         global-semanticdb-minor-mode))
 
@@ -312,6 +319,7 @@
 (semanticdb-enable-gnu-global-databases 'c++-mode)
 ;; as per http://www.randomsample.de/cedetdocs/cedet/CScope.html
 ;;(semanticdb-enable-cscope-databases)
+;; does not work - no such function: (semanticdb-enable-cscope-databases)
 
 ;;(semantic-add-system-include
 ;;  "/usr/include/QtCore" 'c++-mode)
