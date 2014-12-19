@@ -70,7 +70,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; xscope.el for source code browsing, jumping to definitions, etc.
-;; https://github.com/dkogan/xcscope.el
+;; see http://stackoverflow.com/a/12923994/601626
+;; and https://github.com/dkogan/xcscope.el
 (add-to-list 'load-path
              "~/.emacsecb.d/xcscope")
 (require 'xcscope)
