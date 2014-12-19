@@ -151,6 +151,13 @@
 ;; (add-to-list 'ac-dictionary-directories "~/.emacsecb.d/ac-dict")
 (require 'auto-complete-config)
 (ac-config-default)
+;;Autocompletion for C/C++ using clang
+;;see http://truongtx.me/2013/03/06/emacs-ccpp-autocomplete-with-clang/
+;;Requires you to install clang before using it (i.e. running
+;; clang --version
+;;on a bash shell should produce something sensible)
+(require 'auto-complete-clang)
+;; (require 'auto-complete-clang-async) is another module that could be checked
 ;;Seems to hook up to semantic automatically, so C/C++ autocompletion
 ;;works at this point.
 (require 'ac-python)
