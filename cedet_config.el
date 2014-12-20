@@ -76,8 +76,8 @@
              "~/.emacsecb.d/xcscope")
 (require 'xcscope)
 (cscope-setup)
-;; keybinding for file finding
-;;(global-set-key (kbd "C-o") 'cscope-find-this-file)
+;; keybinding for symbol finding
+(global-set-key (kbd "<f1>") 'cscope-find-this-symbol)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
