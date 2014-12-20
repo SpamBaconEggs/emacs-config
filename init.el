@@ -5,6 +5,9 @@
 ;; emacs config
 ;; (customize-set-variable auto-save-default nil)
 
+;;Set to t to use CEDET & ECB. Set to 0 to use Projectile.
+(setq use-cedet-ide t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<package manager>
 ;; Setting up package manager bits, as per http://www.logilab.org/173886
@@ -178,10 +181,13 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<cedet and ecb>
-;;CEDET is a collection of tools aimed at providing IDE-like functionality.
-;;ECB is essentially some UI layered on top of CEDET, providing sidebar buffers
-;;for directory, file and tag/symbol browsing.
-(load "~/code/emacs-config/cedet_init.el")
+;;CEDET is a collection of tools aimed at providing IDE-like
+;;functionality.  ECB is essentially some UI layered on top of
+;;CEDET, providing sidebar buffers for directory, file and
+;;tag/symbol browsing.
+(if use-cedet-ide
+    (load "~/code/emacs-config/cedet_init.el")
+  )
 ;;</cedet and ecb>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
