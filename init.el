@@ -88,14 +88,13 @@
 ;;see http://stackoverflow.com/a/12923994/601626
 ;;and https://github.com/dkogan/xcscope.el
 
-(add-to-list 'load-path
-             "~/.emacsecb.d/xcscope")
 (require 'xcscope)
 (cscope-setup)
 
-;; keybinding for symbol finding
-(global-set-key (kbd "<f1>") 'cscope-find-this-symbol)
-
+(if use-cedet-ide
+    ;; keybinding for symbol finding
+    (global-set-key (kbd "<f1>") 'cscope-find-this-symbol)
+  )
 ;;</cscope tags>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
