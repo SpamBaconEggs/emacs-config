@@ -16,8 +16,7 @@
 
 (require 'projectile)
 (projectile-global-mode)
-
-(global-set-key (kbd "<f1>") 'projectile-find-tag)
+(global-set-key (kbd "M-.") 'projectile-find-tag)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<speedbar
