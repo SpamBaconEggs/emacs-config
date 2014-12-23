@@ -107,7 +107,7 @@
 
 (if use-cedet-ide
     ;; keybinding for symbol finding
-    (global-set-key (kbd "<f1>") 'cscope-find-this-symbol)
+    (global-set-key (kbd "M-.") 'cscope-find-this-symbol)
   )
 ;;</cscope tags>
 
