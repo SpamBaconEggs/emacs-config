@@ -71,10 +71,24 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<ido>
 ;; ido - nice quick buffer option completion
-(require 'ido)
-;;(setq ido-enable-flex-matching t)
-(ido-mode t)
-(setq ido-everywhere t)
+(if t ;; use-cedet-ide
+    (progn
+      (message "loading ido - rmf")
+      (require 'ido)
+      (ido-mode t)
+      (ido-everywhere t)
+      (setq ido-use-faces nil)
+      ;; enable fuzzy matching via flx
+      ;; see https://github.com/bbatsov/projectile
+      ;; and https://github.com/lewang/flx
+      (require 'flx)
+      (require 'flx-ido)
+      (flx-ido-mode 1)
+      ;; disable ido faces to see flx highlights.
+      (setq ido-enable-flex-matching t)
+      ;; disable flx's highlights
+      (setq flx-ido-use-faces nil))
+  )
 
 ;; ido-ubiquitous - Does what you were really hoping for when you did
 ;;(require 'ido-ubiquitous)
