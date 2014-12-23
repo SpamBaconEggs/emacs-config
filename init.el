@@ -108,8 +108,12 @@
                 (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
                   (ggtags-mode 1))))
 ;;(require 'ctags)
-;;</gtags>
+;;</ggtags>
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;<gtags>
+(require 'gtags)
+;;</gtags>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<python>
 ;; Elpy for Python goodies
@@ -176,7 +180,7 @@
 ;;Seems to hook up to semantic automatically, so C/C++ autocompletion
 ;;works at this point.
 (require 'ac-python)
-
+(require 'ac-etags)
 ;;</code autocompletion>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
