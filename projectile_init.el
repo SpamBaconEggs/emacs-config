@@ -64,14 +64,20 @@
 ;;todo - try ido-flx
 
 ;;https://github.com/emacs-helm/helm/wiki
-(if nil
+(if t
     (progn
       (message "enabling helm")
       (require 'helm)
       (require 'helm-config)
       (require 'helm-projectile)
+      (require 'helm-gtags)
+      (global-set-key (kbd "M-.") 'helm-gtags-find-tag)
+      (global-set-key (kbd "<f1>") 'helm-gtags-dwim)
       ;;helm-mode enables helm completion in all Emacs commands using
       ;;completing-read, read-file-name, completion-at-point and
       ;;completing-read-multiple
-      (helm-mode 1))
+      ;;(helm-mode 1)
+      )
   )
+
+
