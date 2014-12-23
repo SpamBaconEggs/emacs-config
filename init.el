@@ -6,7 +6,7 @@
 ;; (customize-set-variable auto-save-default nil)
 
 ;;Set to t to use CEDET & ECB. Set to 0 to use Projectile.
-(setq use-cedet-ide t)
+(setq use-cedet-ide nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<package manager>
@@ -193,6 +193,13 @@
     (load "~/code/emacs-config/cedet_init.el")
   )
 ;;</cedet and ecb>
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;<projectile>
+(if (not use-cedet-ide)
+    (load "~/code/emacs-config/projectile_init.el")
+  )
+;;</projectile>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<git>
