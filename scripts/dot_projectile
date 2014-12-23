@@ -1,0 +1,11 @@
+-.git
+-.svn
+-.cvs
+-*/objects/linux-64-x86-debug-410-gcc
+-*/objects/linux-64-x86-release-410-gcc
+-*/build
+-*/bin
+-*/out
+-*/lib
+-*.o
+-*.so
