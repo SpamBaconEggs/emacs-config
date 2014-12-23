@@ -197,15 +197,27 @@
 ;;</code autocompletion>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;<cedet and ecb>
+;;<ecb>
+;;
+;;Use ECB for both cedet and projectile-based emacs
+;;configurations below. ECB provides a source code browser
+;;(directories, files, tags/symbols and history) that is superior to
+;;speedbar, but which some people say is less well supported :'(
+
+(load "~/code/emacs-config/ecb_init.el")
+;;</ecb>
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;<cedet>
 ;;CEDET is a collection of tools aimed at providing IDE-like
 ;;functionality.  ECB is essentially some UI layered on top of
 ;;CEDET, providing sidebar buffers for directory, file and
 ;;tag/symbol browsing.
+
 (if use-cedet-ide
     (load "~/code/emacs-config/cedet_init.el")
   )
-;;</cedet and ecb>
+;;</cedet>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<projectile>
