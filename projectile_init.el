@@ -16,7 +16,7 @@
 
 (require 'projectile)
 (projectile-global-mode)
-(global-set-key (kbd "M-.") 'projectile-find-tag)
+;; (global-set-key (kbd "M-.") 'projectile-find-tag)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<speedbar
@@ -63,6 +63,11 @@
 ;;https://github.com/emacs-helm/helm
 ;;todo - try ido-flx
 
+;; To make the most of helm-projectile, install the following tools as well:
+;; http://blog.newrelic.com/2015/01/28/grep-ack-ag/
+;; ack-grep http://beyondgrep.com/install/
+;; ag https://github.com/ggreer/the_silver_searcher
+
 ;;https://github.com/emacs-helm/helm/wiki
 (if t
     (progn
@@ -70,14 +75,39 @@
       (require 'helm)
       (require 'helm-config)
       (require 'helm-projectile)
+
+      ;;https://github.com/syohex/emacs-helm-gtags
+      ;;helm-gtags isn't working properly yet - needs
+      ;;more work
       (require 'helm-gtags)
+      (custom-set-variables
+        '(helm-gtags-path-style 'relative)
+        '(helm-gtags-ignore-case t)
+        '(helm-gtags-auto-update t))
+      ;;; Enable helm-gtags-mode
+      (add-hook 'c-mode-hook 'helm-gtags-mode)
+      (add-hook 'c++-mode-hook 'helm-gtags-mode)
+      (add-hook 'asm-mode-hook 'helm-gtags-mode)
+
+      (require 'helm-ack)
+      (require 'helm-ag)
+      (custom-set-variables
+       ;; ignore cscope and GNU GLOBAL tags files, and make it work
+       ;; with case sensitivity elegantly
+       '(helm-ag-command-option " --smart-case --ignore '*cscope*' --ignore '*GT*' --ignore '*.html' "))
+      (helm-projectile-on)
       (global-set-key (kbd "M-.") 'helm-gtags-find-tag)
       (global-set-key (kbd "<f1>") 'helm-gtags-dwim)
       ;;helm-mode enables helm completion in all Emacs commands using
       ;;completing-read, read-file-name, completion-at-point and
       ;;completing-read-multiple
       ;;(helm-mode 1)
+
+      ;; enable helm-completion for projectile (but hopefully not
+      ;; all of emacs
+      (setq projectile-completion-system 'helm)
       )
   )
+
 
 
