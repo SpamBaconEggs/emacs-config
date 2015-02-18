@@ -146,19 +146,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<code mode preferences>
-;;Use spaces instead of tabs
-(setq-default indent-tabs-mode nil)
-;;Use 4 spaces in c mode
-(setq c-basic-offset 4)
-;;Use 4 spaces for tabs
-(setq default-tab-width 4)
-;;Automatically indent after newlines so you don't have to hit TAB
-(require 'cc-mode)
-(add-hook 'prog-mode-hook '(lambda ()
-                             (local-set-key (kbd "RET") 'newline-and-indent)))
-;;Guess the default offset in files automatically
-(require 'dtrt-indent)
-(dtrt-indent-mode 1)
+(load "~/code/emacs-config/programming_styles.el")
 
 ;;</code mode preferences>
 
