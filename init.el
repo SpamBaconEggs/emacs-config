@@ -69,6 +69,15 @@
 ;;</editing basics>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;<misc keybindings>
+;; I find it annoying that C-z will minimize emacs.
+;; It's still bound to C-x C-z, so this feature is still
+;; accessible.
+(global-unset-key (kbd "C-z"))
+
+;;</misc keybindings>
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<ido>
 ;; ido - nice quick buffer option completion
 (if t ;; use-cedet-ide
