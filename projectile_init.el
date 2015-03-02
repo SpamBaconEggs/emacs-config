@@ -61,6 +61,7 @@
 
 ;;todo - try helm and/or helm-projectile - impressive demo here:
 ;;https://github.com/emacs-helm/helm
+;;http://tuhdo.github.io/helm-intro.html
 ;;todo - try ido-flx
 
 ;; To make the most of helm-projectile, install the following tools as well:
@@ -74,6 +75,23 @@
       (message "enabling helm")
       (require 'helm)
       (require 'helm-config)
+      ;; As per http://tuhdo.github.io/helm-intro.html :
+      ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+      ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+      ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+      (global-set-key (kbd "C-c h") 'helm-command-prefix)
+      (global-unset-key (kbd "C-x c"))
+
+      (define-key helm-map
+        (kbd "<tab>")
+        'helm-execute-persistent-action) ; rebind tab to run persistent action
+      (define-key helm-map
+        (kbd "C-i")
+        'helm-execute-persistent-action) ; make TAB works in terminal
+      (define-key helm-map
+        (kbd "C-z")
+        'helm-select-action) ; list actions using C-z
+
       (require 'helm-projectile)
 
       ;;https://github.com/syohex/emacs-helm-gtags
