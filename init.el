@@ -80,7 +80,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<ido>
 ;; ido - nice quick buffer option completion
-(if t ;; use-cedet-ide
+(if nil ;; t ;; use-cedet-ide
     (progn
       (message "loading ido - rmf")
       (require 'ido)
