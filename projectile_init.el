@@ -91,6 +91,13 @@
       (define-key helm-map
         (kbd "C-z")
         'helm-select-action) ; list actions using C-z
+      ;; Helm's M-x implementation. Shows help on function if you hit TAB,
+      ;; and shows keybindings automatically if any are registered.
+      (global-set-key (kbd "M-x") 'helm-M-x)
+      ;; Make M-x fuzzy match, like idoflex
+      (setq helm-M-x-fuzzy-match t)
+      ;; Nicer, navigable kill-ring
+      (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
       (require 'helm-projectile)
 
@@ -119,7 +126,7 @@
       ;;helm-mode enables helm completion in all Emacs commands using
       ;;completing-read, read-file-name, completion-at-point and
       ;;completing-read-multiple
-      ;;(helm-mode 1)
+      (helm-mode 1)
 
       ;; enable helm-completion for projectile (but hopefully not
       ;; all of emacs
