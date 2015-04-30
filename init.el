@@ -290,6 +290,20 @@
   (call-process "/workspace/fanner/katana2.0/gitmerge.sh")
   )
 
+;; TODO: The code-review hack could potentially be a nice
+;; addition to magit. Something like
+;; magit-review-init
+;; -- makes a branch like magit_review_KATANA_17A_BRANCH
+;; -- which tracks origin/KATANA_17A_BRANCH
+;; Thereafter, you can do
+;; magit-review (select review branch)
+;; and
+;; magit-review-close (select the commit you were at)
+
+;; TODO: Adjust so it ties into projectile, so I don't have
+;; to worry about paths.
+;; TODO: Make it work generically on any projects
+;;
 (defun katana-review ()
   (interactive)
   (let ((review-branch-name "review_2_0"))
@@ -298,18 +312,22 @@
     (magit-checkout review-branch-name)
     (magit-status "/workspace/fanner/katana2.0/Apps/Katana")))
 
-(defun katana-review-close ()
-  (interactive)
+(defun katana-review-close (commit)
+;;  (interactive "sEnter last commit reviewed: ")
+  (interactive (list
+                (read-string (format "sEnter last commit reviewed (%s): " (thing-at-point 'word))
+                             nil nil (thing-at-point 'word))))
   (let ((review-branch-name "review_2_0")
         (line1 "")
         (branch-name ""))
+    (magit-checkout review-branch-name)
     (magit-status "/workspace/fanner/katana2.0/Apps/Katana")
     (setq line1 (car (split-string (buffer-string) "\n" t)))
     (setq branch-name (nth 1 (split-string line1)))
     (if (not (string= branch-name review-branch-name))
         (error "not on review branch")
       )
-    (magit-merge "origin/KATANA_17A_BRANCH")
+    (magit-merge commit)
     (magit-checkout "KATANA_17A_BRANCH")
     (magit-status "/workspace/fanner/katana2.0/Apps/Katana")))
 
@@ -322,21 +340,24 @@
     (magit-status "/workspace/fanner/katana2.0/Apps/Geolib3")
     ))
 
-(defun geolib-review-close ()
-  (interactive)
+(defun geolib-review-close (commit)
+;;  (interactive "sEnter last commit reviewed: ")
+  (interactive (list
+                (read-string (format "sEnter last commit reviewed (%s): " (thing-at-point 'word))
+                             nil nil (thing-at-point 'word))))
   (let ((review-branch-name "review_2_0")
         (line1 "")
         (branch-name ""))
+    (magit-checkout review-branch-name)
     (magit-status "/workspace/fanner/katana2.0/Apps/Geolib3")
     (setq line1 (car (split-string (buffer-string) "\n" t)))
     (setq branch-name (nth 1 (split-string line1)))
     (if (not (string= branch-name review-branch-name))
         (error "not on review branch")
       )
-    (magit-merge "origin/GEOLIB3_41A_BRANCH")
+    (magit-merge commit)
     (magit-checkout "GEOLIB3_41A_BRANCH")
-    (magit-status "/workspace/fanner/katana2.0/Apps/Geolib3")
-    ))
+    (magit-status "/workspace/fanner/katana2.0/Apps/Geolib3")))
 
 (defun magit-status-geolib ()
   (interactive)
