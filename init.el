@@ -66,6 +66,13 @@
 ;;Line numbers
 (require 'linum)
 (setq linum-mode t)
+
+;; From http://stackoverflow.com/a/3669681/601626
+(defun show-file-name ()
+  "Show the full path file name in the minibuffer."
+  (interactive)
+  (message (buffer-file-name)))
+
 ;;</editing basics>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
