@@ -181,12 +181,32 @@
 
 ;;</code mode preferences>
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;<grep behaviour>
+
+(require 'grep)
+;; Use this to hardcode it:
+(customize-set-variable
+ 'grep-find-ignored-directories
+ (list
+  ;; defaults
+  "SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}"
+  ;; Foundry build directories
+  "objects" "build" "bin" "out" "lib"))
+;;</grep behaviour>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<whitespace handling>
 (require 'whitespace)
 (autoload 'whitespace-mode           "whitespace" "Toggle whitespace visualization."        t)
 (autoload 'whitespace-toggle-options "whitespace" "Toggle local `whitespace-mode' options." t)
+(customize-set-variable
+ 'whitespace-style (quote
+                    (face tabs spaces trailing lines-tail
+                     space-before-tab newline
+                     indentation empty space-after-tab space-mark
+                     tab-mark newline-mark)))
+
 (global-whitespace-mode 1)
 ;;Use ws-trim module to cleanup whitepsace issues, as it's more flexible
 ;;with regard to where the cleanup will be applied. Specifically, you can
