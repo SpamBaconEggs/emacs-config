@@ -435,4 +435,9 @@
 (setq recentf-max-menu-items 25)
 ;;</recent files>
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;<server>
+;; always start emacs as a server so emacsclient can connect to it
+(server-start)
+;;</server>
 (message "done loading my init.el")
