@@ -162,6 +162,30 @@
 ;;</ggtags>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;<semantic>
+
+;; YAH - Not sure if this is working yet. Will need to lookup and run
+;; diagnostic functions.
+
+;; Make semantic use GNU GLOBAL tags database as backend
+(semanticdb-enable-gnu-global-databases 'c++-mode)
+(semanticdb-enable-gnu-global-databases 'c-mode)
+(semanticdb-enable-gnu-global-databases 'java-mode)
+(semanticdb-enable-gnu-global-databases 'python-mode)
+(semanticdb-enable-gnu-global-databases 'js-mode)
+
+;;</semantic>
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;<speedbar>
+;; YAH - not working yet. Not getting tags/symbols for files in speedbar.
+
+;; configure speedbar to use semantic (which in turn uses GNU GLOBAL)
+(require 'semantic/sb)
+(require 'speedbar)
+(require 'sr-speedbar)
+
+;;</speedbar>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<python>
 ;; Elpy for Python goodies
