@@ -381,7 +381,10 @@
 ;;<p4>
 ;;Configure perforce bits
 (require 'p4)
-;;todo: copy list of client names from .emacs into here.
+(customize-set-variable
+ 'p4-my-clients (list
+                 "fanner_gamgee_graphengine"
+                 ))
 ;; </p4>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
