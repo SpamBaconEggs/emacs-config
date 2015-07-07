@@ -271,6 +271,7 @@
 ;;and review code from various git repositories.
 
 (require 'magit)
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 ;; Note to self: To stage individual hunks, you need to use TAB to
 ;; toggle from the Magit status buffer to the file you want to do
@@ -304,40 +305,45 @@
 ;; to worry about paths.
 ;; TODO: Make it work generically on any projects
 ;;
+
+;;(defvar katana-review-branches
+;;  (list "review_2_0" "review_2_0v2" "review_2_1" "review_main")
+;;  "Lists the human readable branches I created to review Katana dev branches")
+
 (defun katana-review ()
   (interactive)
-  (let ((review-branch-name "review_2_0"))
-    (magit-status "/workspace/fanner/katana2.0/Apps/Katana")
+  (let ((review-branch-name "review_2_1"))
+    (magit-status "/workspace/fanner/katana2.1/Apps/Katana")
     (magit-fetch "origin")
     (magit-checkout review-branch-name)
-    (magit-status "/workspace/fanner/katana2.0/Apps/Katana")))
+    (magit-status "/workspace/fanner/katana2.1/Apps/Katana")))
 
 (defun katana-review-close (commit)
 ;;  (interactive "sEnter last commit reviewed: ")
   (interactive (list
                 (read-string (format "sEnter last commit reviewed (%s): " (thing-at-point 'word))
                              nil nil (thing-at-point 'word))))
-  (let ((review-branch-name "review_2_0")
+  (let ((review-branch-name "review_2_1")
         (line1 "")
         (branch-name ""))
     (magit-checkout review-branch-name)
-    (magit-status "/workspace/fanner/katana2.0/Apps/Katana")
+    (magit-status "/workspace/fanner/katana2.1/Apps/Katana")
     (setq line1 (car (split-string (buffer-string) "\n" t)))
     (setq branch-name (nth 1 (split-string line1)))
     (if (not (string= branch-name review-branch-name))
         (error "not on review branch")
       )
     (magit-merge commit)
-    (magit-checkout "KATANA_17A_BRANCH")
-    (magit-status "/workspace/fanner/katana2.0/Apps/Katana")))
+    (magit-checkout "master")
+    (magit-status "/workspace/fanner/katana2.1/Apps/Katana")))
 
 (defun geolib-review ()
   (interactive)
-  (let ((review-branch-name "review_2_0"))
-    (magit-status "/workspace/fanner/katana2.0/Apps/Geolib3")
+  (let ((review-branch-name "review_2_1"))
+    (magit-status "/workspace/fanner/katana2.1/Apps/Geolib3")
     (magit-fetch "origin")
     (magit-checkout review-branch-name)
-    (magit-status "/workspace/fanner/katana2.0/Apps/Geolib3")
+    (magit-status "/workspace/fanner/katana2.1/Apps/Geolib3")
     ))
 
 (defun geolib-review-close (commit)
@@ -345,35 +351,35 @@
   (interactive (list
                 (read-string (format "sEnter last commit reviewed (%s): " (thing-at-point 'word))
                              nil nil (thing-at-point 'word))))
-  (let ((review-branch-name "review_2_0")
+  (let ((review-branch-name "review_2_1")
         (line1 "")
         (branch-name ""))
     (magit-checkout review-branch-name)
-    (magit-status "/workspace/fanner/katana2.0/Apps/Geolib3")
+    (magit-status "/workspace/fanner/katana2.1/Apps/Geolib3")
     (setq line1 (car (split-string (buffer-string) "\n" t)))
     (setq branch-name (nth 1 (split-string line1)))
     (if (not (string= branch-name review-branch-name))
         (error "not on review branch")
       )
     (magit-merge commit)
-    (magit-checkout "GEOLIB3_41A_BRANCH")
+    (magit-checkout "master")
     (magit-status "/workspace/fanner/katana2.0/Apps/Geolib3")))
 
 (defun magit-status-geolib ()
   (interactive)
   (magit-status "/workspace/fanner/katana2.0/Apps/Geolib3/")
-  (magit-log-ranged "GEOLIB3_35A_BRANCH..origin/GEOLIB3_35A_BRANCH")
+  (magit-log-ranged "master..origin/master")
   )
 
 (defun magit-status-katana ()
   (interactive)
   (magit-status "/workspace/fanner/katana2.0/Apps/Katana/")
-  (magit-log-ranged "KATANA_17A_40A_BRANCH..origin/KATANA_17A_40A_BRANCH")
+  (magit-log-ranged "master..origin/master")
   )
 
 (defun run-katana ()
   (interactive)
-  (start-process "katana2.0" "katana-output" "/workspace/fanner/katana2.0/runkatana.sh")
+  (start-process "katana2.1" "katana-output" "/workspace/fanner/katana2.1/runkatana.sh")
   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
