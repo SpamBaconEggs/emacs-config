@@ -426,6 +426,13 @@
                                 (color-theme-initialize)
                                 (color-theme-solarized-dark))))
 ;;</colour theme>
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;<recent files>
+;;http://www.emacswiki.org/emacs/RecentFiles
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+;;</recent files>
 
 (message "done loading my init.el")
