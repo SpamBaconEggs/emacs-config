@@ -1,5 +1,8 @@
 ;; RMF's file.
 
+;; todo: Move everything from custom set faces and custom from the
+;; .emacs file into my config file
+
 ;; see http://ergoemacs.org/emacs/emacs_custom_system.html
 ;; for tips on moving custom-set variables from .emacs files into your own
 ;; emacs config
