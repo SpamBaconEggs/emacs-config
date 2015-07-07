@@ -131,21 +131,37 @@
 ;;</cscope tags>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;<gtags>
+;; http://www.wolinlabs.com/blog/emacs.global.speedbar.html
+(require 'gtags)
+(autoload 'gtags-mode "gtags" "" t)
+;;</gtags>
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<ggtags>
 ;; ggtags - for GNU Global tags and Exuberant C Tags (depending on how GNU GLOBAL was compiled)
+;; See
+;; https://github.com/bbatsov/projectile
+;; https://github.com/leoliu/ggtags
+;; Also note that Global on Debian & Ubuntu is very old, and may
+;; result in errors, so using a later version is advised, e.g.:
+;; https://github.com/leoliu/ggtags/issues/31
+;; Also note that you need to compile it with a special flag to
+;; get support for more languages:
+;; ./configure --with-exuberant-ctags=/usr/local/bin/ctags
+
 (require 'ggtags)
 ;;   enable ggtags for c modes
 (add-hook 'c-mode-common-hook
               (lambda ()
                 (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
                   (ggtags-mode 1))))
+(add-hook 'python-mode-hook 'ggtags-mode)
+
 ;;(require 'ctags)
 ;;</ggtags>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;<gtags>
-(require 'gtags)
-;;</gtags>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<python>
 ;; Elpy for Python goodies
