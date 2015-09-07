@@ -171,12 +171,34 @@
 ;; YAH - Not sure if this is working yet. Will need to lookup and run
 ;; diagnostic functions.
 
+;; TIP: If you start getting errors like
+;; " (wrong-type-argument stringp 1) "
+;; when switching to C++ files, then it's possible that you haven't
+;; got g++ installed (e.g. Ubuntu comes with gcc out the box, but not g++,
+;; and semantic failes inelegantly if g++ isn't found).
+;; See, for example, http://stackoverflow.com/q/14214714/601626
+
 ;; Make semantic use GNU GLOBAL tags database as backend
-(semanticdb-enable-gnu-global-databases 'c++-mode)
-(semanticdb-enable-gnu-global-databases 'c-mode)
-(semanticdb-enable-gnu-global-databases 'java-mode)
-(semanticdb-enable-gnu-global-databases 'python-mode)
-(semanticdb-enable-gnu-global-databases 'js-mode)
+(require 'semantic)
+(require 'semantic/db)
+(semanticdb-enable-gnu-global-databases 'c++-mode t)
+(semanticdb-enable-gnu-global-databases 'c-mode t)
+(semanticdb-enable-gnu-global-databases 'java-mode t)
+(semanticdb-enable-gnu-global-databases 'python-mode t)
+(semanticdb-enable-gnu-global-databases 'js-mode t)
+
+(require 'semantic/ia)
+;;(require 'semantic/bovine/c)
+(require 'semantic/bovine/gcc)
+(require 'semantic/lex)
+(require 'semantic/lex-spp)
+(require 'semantic/debug)
+(require 'semantic/symref)
+
+;; Force semantic symref to use GNU GLOBAL for symbols
+;; See http://stackoverflow.com/questions/23098650/cedet-cannot-use-gnu-global-for-symref
+(setq-default semantic-symref-tool "global")
+(semantic-mode 1)
 
 ;;</semantic>
 
@@ -185,9 +207,14 @@
 ;; YAH - not working yet. Not getting tags/symbols for files in speedbar.
 
 ;; configure speedbar to use semantic (which in turn uses GNU GLOBAL)
-(require 'semantic/sb)
 (require 'speedbar)
 (require 'sr-speedbar)
+(require 'semantic/sb)
+
+;; configure speedbar to use imenu for tags
+;; -- first make imenu use ggtags
+;; (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
+;; -- then make speedbar use imenu
 
 ;;</speedbar>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -290,7 +317,7 @@
 ;;(directories, files, tags/symbols and history) that is superior to
 ;;speedbar, but which some people say is less well supported :'(
 
-(load "~/code/emacs-config/ecb_init.el")
+;;(load "~/code/emacs-config/ecb_init.el")
 ;;</ecb>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
