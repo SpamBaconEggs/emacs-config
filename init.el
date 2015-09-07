@@ -57,6 +57,10 @@
 (add-to-list 'load-path
              "~/.emacs.d/extra")
 (require 'transpose-frame)
+
+;; See http://stackoverflow.com/a/15724130/601626
+(require 'smooth-scrolling)
+(setq smooth-scroll-margin 5)
 ;;</navigation>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
