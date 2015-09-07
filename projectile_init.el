@@ -126,6 +126,10 @@
       ;;helm-mode enables helm completion in all Emacs commands using
       ;;completing-read, read-file-name, completion-at-point and
       ;;completing-read-multiple
+
+      ;; https://github.com/emacs-helm/helm/blob/master/helm-imenu.el
+      (require 'helm-imenu)
+
       (helm-mode 1)
 
       ;; enable helm-completion for projectile (but hopefully not
