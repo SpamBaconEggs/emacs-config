@@ -1,5 +1,12 @@
 ;; RMF's file.
 
+;; todo: C-M-f and C-M-b (forward sexp, etc.) don't work correctly in
+;; Python mode.
+
+;; todo: sr-speedbar isn't showing tags under file names.
+
+;; todo: implement more magic from http://tuhdo.github.io/c-ide.html
+
 ;; todo: Move everything from custom set faces and custom from the
 ;; .emacs file into my config file
 
