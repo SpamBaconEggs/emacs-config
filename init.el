@@ -223,6 +223,11 @@
 ;; (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
 ;; -- then make speedbar use imenu
 
+(customize-set-variable
+ 'speedbar-tag-hierarchy-method (quote (
+                 speedbar-trim-words-tag-hierarchy speedbar-simple-group-tag-hierarchy
+                 )))
+
 ;;</speedbar>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<python>
