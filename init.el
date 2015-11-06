@@ -322,6 +322,10 @@
 ;;</code autocompletion>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;<code checking>
+(require 'flymake)
+(require 'flycheck-clangcheck)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<ecb>
 ;;
 ;;Use ECB for both cedet and projectile-based emacs
