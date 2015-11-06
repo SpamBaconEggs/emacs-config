@@ -303,6 +303,19 @@
 ;;</whitespace handling>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;<code navigation>
+;; https://github.com/Andersbakken/rtags
+
+;;</code navigation>
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;<code formatting>
+;; See http://clang.llvm.org/docs/ClangFormat.html
+;; Can also get it from MELPA nowadays.
+(require 'clang-format)
+;;</code formatting>
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<code autocompletion>
 (require 'auto-complete)
 ;; (add-to-list 'ac-dictionary-directories "~/.emacsecb.d/ac-dict")
