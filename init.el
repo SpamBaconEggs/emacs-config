@@ -45,6 +45,32 @@
 ;;</package manager>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;<emacs shell path>
+;; See http://stackoverflow.com/a/6415812/601626
+;; Work-around for getting .bashrc paths into emacs on Mac OS X
+(require 'exec-path-from-shell) ;; if not using the ELPA package
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
+(x-focus-frame nil)
+;;</emacs shell path>
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;<mac os x bindings>
+
+;; Switch control and command keys.
+;; See http://superuser.com/a/297454/398124
+(setq mac-command-modifier 'control)
+(setq ns-function-modifier 'super) ; make Fn key do Super
+
+;; Make it so Alt-3 inserts a # like it does across the board
+;; in all OS X apps (otherwise it fires off an emacs command)
+(fset 'insertPound "#")
+(global-set-key (kbd "M-3") 'insertPound)
+
+;;</mac os x bindings>
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<navigation>
 
 ;; Go to specified line number
@@ -54,11 +80,14 @@
 
 ;; Switch windows
 ;; see windmove here http://ergoemacs.org/emacs/emacs_winner_mode.html
+
+;; TODO: Keybindings for this don't work well on the Mac yet (interferes
+;; with some system global ones)
 (require 'windmove)
-(global-set-key (kbd "<s-left>") 'windmove-left)
-(global-set-key (kbd "<s-right>") 'windmove-right)
-(global-set-key (kbd "<s-down>") 'windmove-down)
-(global-set-key (kbd "<s-up>") 'windmove-up)
+(global-set-key (kbd "C-c <left>") 'windmove-left)
+(global-set-key (kbd "C-c <right>") 'windmove-right)
+(global-set-key (kbd "C-c <down>") 'windmove-down)
+(global-set-key (kbd "C-c <up>") 'windmove-up)
 
 ;; Swap buffers
 ;; see http://stackoverflow.com/questions/1774832/how-to-swap-the-buffers-in-2-windows-emacs
