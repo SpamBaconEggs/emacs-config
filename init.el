@@ -604,6 +604,55 @@
 ;;</markdown mode>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;<org mode>
+;; See http://orgmode.org/orgguide.pdf
+;; The following lines are always needed. Choose your own keys.
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-cb" 'org-iswitchb)
+
+(setq org-todo-keywords
+      '((sequence "TODO" "|" "DONE" "DELEGATED" "DROPPED" "SUPERCEDED")))
+
+;; Customise priorities. By default there's just A, B and C.
+;; http://emacs.stackexchange.com/questions/12791/customize-org-mode-priorities
+;; I'm probably using Org mode in way that wasn't intended (hardly
+;; ever look at weekly views, for example)
+(custom-set-variables
+ '(org-highest-priority ?A)
+ '(org-lowest-priority ?F)
+ '(org-default-priority ?A))
+
+
+
+;; http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
+(setq org-agenda-custom-commands
+      '(
+        ;("u" tags-todo "urgent")
+        ;("a" tags-todo "asap")
+        ;("U" tags-todo "urgent|asap|SCHEDULED<=\"<+1d>\"|DEADLINE<=\"<+7d>\"")
+        ("d" todo "DONE|DROPPED|DELEGATED|SUPERCEDED")
+        ("D" "Weekly Completed Review"
+         (
+          (agenda "" ((org-agenda-ndays 7)
+                      (org-agenda-archives-mode t)))
+          (todo "DONE|DROPPED|DELEGATED|SUPERCEDED")))
+        ))
+;;http://orgmode.org/manual/Agenda-commands.html
+
+;; http://emacs.stackexchange.com/questions/13820/inline-verbatim-and-code-with-quotes-in-org-mode
+
+(setq org-log-done 'time)
+
+(add-hook 'org-mode-hook (lambda ()
+                           (progn
+                             (auto-fill-mode)
+                             (local-set-key (kbd "C-t") 'org-todo)
+                             (setcar (nthcdr 4 org-emphasis-regexp-components) 10000))))
+;;</colour theme>
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<colour theme>
 (require 'color-theme)
 (require 'color-theme-solarized)
