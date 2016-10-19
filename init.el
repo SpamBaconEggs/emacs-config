@@ -97,6 +97,8 @@
 (require 'transpose-frame)
 
 ;; See http://stackoverflow.com/a/15724130/601626
+;; TODO: There seem to multiple similarly named packages - so need to
+;; figure which one I should be using
 (require 'smooth-scrolling)
 (setq smooth-scroll-margin 5)
 ;;</navigation>
