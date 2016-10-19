@@ -338,14 +338,58 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<code navigation>
 ;; https://github.com/Andersbakken/rtags
+;; https://vxlabs.com/2016/04/11/step-by-step-guide-to-c-navigation-and-completion-with-emacs-and-the-clang-based-rtags/
 
+(add-to-list 'load-path "/workspace/fanner/rtags_v2.3/rtags/src/")
+(require 'rtags)
+(add-to-list 'exec-path "/workspace/fanner/rtags_v2.3/rtags/bin/")
+
+;; ensure that we use only rtags checking
+;; https://github.com/Andersbakken/rtags#optional-1
+(defun setup-flycheck-rtags ()
+  (interactive)
+  (flycheck-select-checker 'rtags)
+  ;; RTags creates more accurate overlays.
+  (setq-local flycheck-highlighting-mode nil)
+  (setq-local flycheck-check-syntax-automatically nil))
+
+;; only run this if rtags is installed
+(when (require 'rtags nil :noerror)
+  ;; make sure you have company-mode installed
+  (require 'company)
+  (define-key c-mode-base-map (kbd "M-.")
+    (function rtags-find-symbol-at-point))
+  (define-key c-mode-base-map (kbd "M-,")
+    (function rtags-find-references-at-point))
+  ;; disable prelude's use of C-c r, as this is the rtags keyboard prefix
+  ;; ;; RMF: Don't have prelude
+  ;; ;; (define-key prelude-mode-map (kbd "C-c r") nil)
+  ;; install standard rtags keybindings. Do M-. on the symbol below to
+  ;; jump to definition and see the keybindings.
+  (rtags-enable-standard-keybindings)
+  ;; comment this out if you don't have or don't use helm
+  (setq rtags-use-helm t)
+  ;; company completion setup
+  (setq rtags-autostart-diagnostics t)
+  (rtags-diagnostics)
+  (setq rtags-completions-enabled t)
+  (push 'company-rtags company-backends)
+  (global-company-mode)
+  (define-key c-mode-base-map (kbd "<C-tab>") (function company-complete))
+  ;; use rtags flycheck mode -- clang warnings shown inline
+  (require 'flycheck-rtags)
+  ;; c-mode-common-hook is also called by c++-mode
+  (add-hook 'c-mode-common-hook #'setup-flycheck-rtags))
 ;;</code navigation>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<code formatting>
 ;; See http://clang.llvm.org/docs/ClangFormat.html
 ;; Can also get it from MELPA nowadays.
+;; (Had to add /usr/local/Cellar/clang-format/2015-09-01/bin/ to
+;; emacs's exec_path to get this to work.)
 (require 'clang-format)
+(global-set-key [C-M-tab] 'clang-format-region)
 ;;</code formatting>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -370,7 +414,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<code checking>
 (require 'flymake)
-(require 'flycheck-clangcheck)
+;; TODO (require 'flycheck-clangcheck)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<ecb>
 ;;
