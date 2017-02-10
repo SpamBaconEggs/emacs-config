@@ -625,7 +625,7 @@
 ;; ever look at weekly views, for example)
 (custom-set-variables
  '(org-highest-priority ?A)
- '(org-lowest-priority ?F)
+ '(org-lowest-priority ?H)
  '(org-default-priority ?A))
 
 
