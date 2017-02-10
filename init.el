@@ -649,11 +649,21 @@
 
 (setq org-log-done 'time)
 
+;; http://orgmode.org/manual/Editing-source-code.html#Editing-source-code
+;; UNTESTED
+(custom-set-variables
+ '(org-src-preserve-indentation t)
+ '(org-src-fontify-natively t))
+
+(require 'ob-ipython)
+
 (add-hook 'org-mode-hook (lambda ()
                            (progn
                              (auto-fill-mode)
                              (local-set-key (kbd "C-t") 'org-todo)
                              (setcar (nthcdr 4 org-emphasis-regexp-components) 10000))))
+
+
 ;;</colour theme>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
