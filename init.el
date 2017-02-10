@@ -264,6 +264,29 @@
 ;;</speedbar>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<python>
+(require 'python)
+
+;; IPython
+;; (see http://stackoverflow.com/a/31274036/601626 and
+;; https://www.emacswiki.org/emacs/PythonProgrammingInEmacs)
+;; Hack for Mac OS X, where IPython's path is not accessible by
+;; default, and it's not getting picked up from my bashrc.
+(setenv "PATH"
+  (concat
+   (getenv "PATH")
+   ":/usr/local/bin"
+  )
+  )
+(setq exec-path (append exec-path '("/usr/local/bin")))
+
+;;(when (executable-find "ipython")
+;;  (setq python-shell-interpreter "ipython"))
+
+(add-hook 'python-mode-hook
+          (lambda () (progn
+                       (setq python-shell-interpreter "ipython")
+                       (setq python-shell-interpreter-args "-i"))))
+
 ;; Elpy for Python goodies
 ;; See: https://github.com/jorgenschaefer/elpy/wiki/Installation
 (elpy-enable)
