@@ -1,0 +1,17 @@
+---
+#-------------------------------------------------------------------------------
+# Katana C++ style config for clang-format (see
+# <http://clang.llvm.org/docs/ClangFormat.html>).
+#
+# Copy to a file named ".clang-format" in the root of your repository.
+#-------------------------------------------------------------------------------
+BasedOnStyle:  Chromium
+AccessModifierOffset: -4
+IndentWidth:     4
+ContinuationIndentWidth: 4
+BreakBeforeBraces: Allman
+BreakConstructorInitializersBeforeComma: true
+Cpp11BracedListStyle: false
+IndentCaseLabels: false
+Standard: Cpp03
+...
