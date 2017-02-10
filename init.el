@@ -291,6 +291,38 @@
 ;; See: https://github.com/jorgenschaefer/elpy/wiki/Installation
 (elpy-enable)
 
+;; MANUAL: Ensure you install pyflakes, as in
+;; pip --upgrade pyflakes
+(require 'pyflakes)
+
+;; MANUAL:
+;; pip install pylint
+;; see http://code.litomisky.com/2014/10/24/getting-with-pylint-in-emacs/
+;; great, exhaustive checking, including whitespace
+(require 'pylint)
+
+;; Install these from package-list-packages
+;; http://www.flycheck.org/en/latest/
+(require 'flycheck)
+
+;; Flycheck vs the older Flymake and getting Flycheck working with Pylint.
+;; http://www.flycheck.org/en/latest/user/flycheck-versus-flymake.html#flycheck-versus-flymake
+;; http://liuluheng.github.io/wiki/public_html/Python/flycheck-pylint-emacs-with-python.html
+(defun flycheck-python-setup ()
+  (flycheck-mode))
+(add-hook 'python-mode-hook #'flycheck-python-setup)
+
+;; (add-hook 'python-mode-hook #'(lambda ()
+;;                                 (setq flycheck-checker 'python-pylint)))
+
+;; (require 'flymake-python-pyflakes)
+;; (add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
+;; MANUAL: pip install flake8
+;; (setq flymake-python-pyflakes-executable "flake8")
+
+;; Elpy
+;; see https://github.com/jorgenschaefer/elpy
+;; see
 ;; First to do this on command line: pip install elpy jedi
 (require 'elpy)
 (package-initialize)
