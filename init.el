@@ -266,6 +266,7 @@
 ;;<python>
 ;; Elpy for Python goodies
 ;; See: https://github.com/jorgenschaefer/elpy/wiki/Installation
+(elpy-enable)
 
 ;; First to do this on command line: pip install elpy jedi
 (require 'elpy)
