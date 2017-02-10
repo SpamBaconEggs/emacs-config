@@ -592,19 +592,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<markdown mode>
 ;; editing/viewing of markdown files
-;; use git-hub-flavoured markdown instead of standard
-(autoload 'markdown-mode "markdown-mode"
-  "Major mode for editing Markdown files" t)
-;; standard markdown flavour is below
-;;(autoload 'markdown-mode "markdown-mode"
-;;  "Major mode for editing Markdown files" t)
-;;; Markdown mode, choosing the github-flavoured-mode, as that gives
-;;; syntax highlighting. Woot!
-(add-to-list 'auto-mode-alist '("\\.text\\'" . gfm-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
+(require 'markdown-mode)
+;; github flavoured
+;; (require 'gfm-mode)
+;; preview
+(require 'markdown-preview-eww)
 ;; see http://stackoverflow.com/a/18443287
-(setq markdown-command "markdown2 -x fenced-code-blocks -x tables")
+;; and https://github.com/trentm/python-markdown2/wiki/Extras
+;; Required for github style ``` code blocks ```
+(setq markdown-command "markdown2 -x fenced-code-blocks -x tables -x code-friendly")
+;; Note: the html generator above
 ;;</markdown mode>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
