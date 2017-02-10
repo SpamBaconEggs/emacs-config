@@ -324,10 +324,10 @@
 ;; see https://github.com/jorgenschaefer/elpy
 ;; see
 ;; First to do this on command line: pip install elpy jedi
-(require 'elpy)
-(package-initialize)
-(elpy-enable)
-(setq python-indent-offset 4)
+;; (require 'elpy) ;; doesn't work on mac os x 10.9 box?
+;; (package-initialize)
+;; (elpy-enable)
+;; (setq python-indent-offset 4)
 
 ;; Rope (the default code completer for elpy) is abominably slow.
 ;; Use Jedi instead. (WIP)
