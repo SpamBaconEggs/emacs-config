@@ -803,6 +803,14 @@
        ;;(paste-to-mark arg)
        )
 (global-set-key (kbd "C-c w")  'copy-word)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; See http://stackoverflow.com/a/3669681/601626
+(defun show-file-name ()
+  "Show the full path file name in the minibuffer."
+  (interactive)
+  (message (buffer-file-name)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<server>
 ;; always start emacs as a server so emacsclient can connect to it
