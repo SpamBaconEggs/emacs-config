@@ -31,8 +31,8 @@
              '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives
-             '("elpy" . "https://jorgenschaefer.github.io/packages/"))
+;; (add-to-list 'package-archives
+;;              '("elpy" . "https://jorgenschaefer.github.io/packages/"))
 
 ;; Initialize and require non-ELPA packages, etc.
 
