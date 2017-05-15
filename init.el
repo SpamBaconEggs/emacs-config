@@ -744,8 +744,8 @@
 (add-hook 'after-init-hook (lambda ()
                              (progn
                                 (color-theme-initialize)
-                                (color-theme-solarized-dark)
-                                (#'global-flycheck-mode))))
+                                (color-theme-solarized-dark))))
+;;                                (#'global-flycheck-mode))))
 ;;</colour theme>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
