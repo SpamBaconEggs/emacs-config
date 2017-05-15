@@ -49,8 +49,30 @@
 ;; See http://stackoverflow.com/a/6415812/601626
 ;; Work-around for getting .bashrc paths into emacs on Mac OS X
 (require 'exec-path-from-shell) ;; if not using the ELPA package
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
+
+(when (string= system-type "darwin")
+  (progn
+    (message "debugging darwin: system-type is '%s'" system-type)
+    (exec-path-from-shell-initialize)
+    ;; see https://www.emacswiki.org/emacs/CustomizingAndSaving
+    ;; this tells customize system that we've changed the value
+    (put 'exec-path 'customized-value (list (custom-quote (symbol-value 'exec-path))))))
+
+    ;; (message "exec path is '%s' " exec-path)))
+;;(when (memq window-system '(mac ns))
+;;  (exec-path-from-shell-initialize))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Hack for Mac OS X, where IPython's path is not accessible by
+;; default, and it's not getting picked up from my bashrc, and where
+;; lots of other goodies on local don't get found automatically.
+;; (setenv "PATH"
+;;   (concat
+;;    (getenv "PATH")
+;;    ":/usr/local/bin"
+;;   )
+;;   )
+;; (setq exec-path (append exec-path '("/usr/local/bin")))
 
 (x-focus-frame nil)
 ;;</emacs shell path>
@@ -264,32 +286,26 @@
 ;;</speedbar>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<python>
-(require 'python)
 
 ;; IPython
 ;; (see http://stackoverflow.com/a/31274036/601626 and
 ;; https://www.emacswiki.org/emacs/PythonProgrammingInEmacs)
-;; Hack for Mac OS X, where IPython's path is not accessible by
-;; default, and it's not getting picked up from my bashrc.
-(setenv "PATH"
-  (concat
-   (getenv "PATH")
-   ":/usr/local/bin"
-  )
-  )
-(setq exec-path (append exec-path '("/usr/local/bin")))
 
-;;(when (executable-find "ipython")
-;;  (setq python-shell-interpreter "ipython"))
+(require 'python)
 
-(add-hook 'python-mode-hook
-          (lambda () (progn
-                       (setq python-shell-interpreter "ipython")
-                       (setq python-shell-interpreter-args "-i"))))
+(when (executable-find "ipython")
+  (setq python-shell-interpreter "ipython"))
+
+;; (add-hook 'python-mode-hook
+;;           (lambda () (progn
+;;                        (setq python-shell-interpreter "ipython")
+;;                        (setq python-shell-interpreter-args "-i"))))
 
 ;; Elpy for Python goodies
 ;; See: https://github.com/jorgenschaefer/elpy/wiki/Installation
+;; Remember to install yapf if you automatically want to reformat code.
 (elpy-enable)
+;;'elpy-rpc-python-command "
 
 ;; MANUAL: Ensure you install pyflakes, as in
 ;; pip --upgrade pyflakes
@@ -400,7 +416,10 @@
 
 (add-to-list 'load-path "/workspace/fanner/rtags_v2.3/rtags/src/")
 (require 'rtags)
-(add-to-list 'exec-path "/workspace/fanner/rtags_v2.3/rtags/bin/")
+(unless (string= system-type "darwin")
+  ;; we set rtags on darwin in a different way, due to UI and shell versions not having the same
+  ;; path and needing to jump through hoops to make that so
+  (add-to-list 'exec-path "/workspace/fanner/rtags_v2.3/rtags/bin/"))
 
 ;; ensure that we use only rtags checking
 ;; https://github.com/Andersbakken/rtags#optional-1
