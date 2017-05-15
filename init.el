@@ -645,10 +645,6 @@
 ;;Configure perforce bits
 
 (require 'p4)
-(customize-set-variable
-'p4-my-clients (list
-                "fanner_gamgee_graphengine"
-               ))
 
 ;;</p4>
 
