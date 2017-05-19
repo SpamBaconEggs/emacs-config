@@ -644,7 +644,9 @@
 ;;<p4>
 ;;Configure perforce bits
 
-(require 'p4)
+;; Disabling this for now - it keeps on erroring out when accessing P4
+;; every time I load a code file D:<
+;(require 'p4)
 
 ;;</p4>
 
