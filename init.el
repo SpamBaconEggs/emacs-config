@@ -523,6 +523,11 @@
 ;;</projectile>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;<helm>
+(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
+;;</helm>
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;<git>
 ;;Configure magit and some home-rolled functionality to help me fetch
 ;;and review code from various git repositories.
