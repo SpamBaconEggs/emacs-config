@@ -692,7 +692,7 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 
 (setq org-todo-keywords
-      '((sequence "TODO" "|" "DONE" "DELEGATED" "DROPPED" "SUPERCEDED")))
+      '((sequence "TODO" "INPROGRESS" "|" "DONE" "DELEGATED" "DROPPED" "SUPERCEDED")))
 
 ;; Customise priorities. By default there's just A, B and C.
 ;; http://emacs.stackexchange.com/questions/12791/customize-org-mode-priorities
